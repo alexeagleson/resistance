@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { WelcomeScreen } from './WelcomeScreen';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WelcomeScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
