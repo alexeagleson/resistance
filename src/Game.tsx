@@ -1,42 +1,22 @@
 import React, { useEffect } from "react";
-import * as ROT from "rot-js";
-import { DisplayOptions } from "rot-js/lib/display/types";
-
-const displayConfig: Partial<DisplayOptions> = {
-  width: 30,
-  height: 10,
-  fontSize: 40,
-  bg: "grey",
-  fg: "pink"
-};
-
-let y = 4;
-let x = 8;
-const display = new ROT.Display(displayConfig);
-const gameCanvas = display.getContainer();
-display.draw(x, y, ["V", "T"], null, null);
-
-const input = document.createElement("input");
-
-input.addEventListener("keydown", function(e) {
-  const code = e.keyCode;
-  const ch = String.fromCharCode(code);
-  let vk = "?"; /* find the corresponding constant */
-  for (const name in ROT.KEYS) {
-    if ((ROT.KEYS as any)[name] == code && name.indexOf("VK_") == 0) {
-      vk = name;
-    }
-  }
-  display.draw(x, y, " ", null, null);
-  if (vk === "VK_UP") y--;
-  if (vk === "VK_DOWN") y++;
-  if (vk === "VK_RIGHT") x++;
-  if (vk === "VK_LEFT") x--;
-
-  display.draw(x, y, ["V", "T"], null, null);
-});
+import { display, gameCanvas } from "./game_objects/canvas";
+import { createController } from "./game_objects/control";
+import { voyager } from "./game_objects/maps";
+const input = createController(display);
 
 input.style.width = "1px";
+console.log (voyager);
+
+
+Object.keys(voyager).forEach((coords) => {
+  let displayCharacter = ".";
+  const numberCoords = coords.split(",");
+  console.log (coords);
+  if (voyager [coords] === 1) {
+    displayCharacter = "$";
+  }
+    display.draw(Number(numberCoords[0]), Number(numberCoords[1]), displayCharacter, null, null);
+});
 
 export const Game = () => {
   useEffect(() => {
