@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { display, gameCanvas } from "./game_objects/canvas";
 import { createController } from "./game_objects/control";
 import { voyager } from "./game_objects/maps";
-const input = createController(display);
+const input = createController(display, voyager);
+
 
 input.style.width = "1px";
 console.log (voyager);

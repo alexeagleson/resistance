@@ -4,8 +4,10 @@ import * as ROT from "rot-js";
 let y = 4;
 let x = 8;
 
-export const createController = (displayFromGameFile: ROT.Display) => {
-  displayFromGameFile.draw(x, y, ["V", "T"], null, null);
+export const createController = (
+  displayFromGameFile: ROT.Display,
+  mapFromGameFile: any
+) => {
   const input = document.createElement("input");
 
   input.addEventListener("keydown", function (e) {
@@ -17,11 +19,27 @@ export const createController = (displayFromGameFile: ROT.Display) => {
         vk = name;
       }
     }
-    displayFromGameFile.draw(x, y, " ", null, null);
-    if (vk === "VK_UP") y--;
-    if (vk === "VK_DOWN") y++;
-    if (vk === "VK_RIGHT") x++;
-    if (vk === "VK_LEFT") x--;
+    displayFromGameFile.draw(x, y, ".", null, null);
+    if (vk === "VK_UP") {
+      if (mapFromGameFile[`${x},${y - 1}`] !== 1) {
+        y--;
+      }
+    }
+    if (vk === "VK_DOWN") {
+      if (mapFromGameFile[`${x},${y + 1}`] !== 1) {
+        y++;
+      }
+    }
+    if (vk === "VK_RIGHT") {
+      if (mapFromGameFile[`${x + 1},${y}`] !== 1) {
+        x++;
+      }
+    }
+    if (vk === "VK_LEFT") {
+      if (mapFromGameFile[`${x - 1},${y}`] !== 1) {
+        x--;
+      }
+    }
 
     displayFromGameFile.draw(x, y, ["V", "T"], null, null);
   });

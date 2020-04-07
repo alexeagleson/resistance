@@ -5,8 +5,8 @@ const displayConfig: Partial<DisplayOptions> = {
     width: 31,
     height: 11,
     fontSize: 40,
-    bg: "grey",
-    fg: "pink"
+    bg: "#333",
+    fg: "#ccc"
   };
   
 export const display = new ROT.Display(displayConfig);
