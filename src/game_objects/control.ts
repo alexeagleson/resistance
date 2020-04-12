@@ -1,13 +1,27 @@
 import * as ROT from "rot-js";
+import { GameMap } from "./maps";
+import { findEmptyTile, convertStringCoordsToNumArray } from "./utility";
+import { TUVIX_ICON } from "./constants";
 // export const dogThung = 7;
 
-let y = 4;
-let x = 8;
+let x = 0;
+let y = 0;
+
+export const drawTuvix =  (displayFromGameFile:ROT.Display):void => {
+  displayFromGameFile.draw(x, y, TUVIX_ICON, null, null);
+};
 
 export const createController = (
   displayFromGameFile: ROT.Display,
-  mapFromGameFile: any
+  mapFromGameFile: GameMap
 ) => {
+  const playStartingPosition = convertStringCoordsToNumArray(
+    findEmptyTile(mapFromGameFile)
+  );
+  x = playStartingPosition[0];
+  y = playStartingPosition[1];
+
+
   const input = document.createElement("input");
 
   input.addEventListener("keydown", function (e) {
@@ -41,7 +55,7 @@ export const createController = (
       }
     }
 
-    displayFromGameFile.draw(x, y, ["V", "T"], null, null);
+    displayFromGameFile.draw(x, y, TUVIX_ICON, null, null);
   });
   return input;
 };

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { display, gameCanvas } from "./game_objects/canvas";
-import { createController } from "./game_objects/control";
+import { createController, drawTuvix } from "./game_objects/control";
 import { voyager } from "./game_objects/maps";
+import { convertStringCoordsToNumArray, findEmptyTile } from "./game_objects/utility";
 const input = createController(display, voyager);
 
 
@@ -11,13 +12,23 @@ console.log (voyager);
 
 Object.keys(voyager).forEach((coords) => {
   let displayCharacter = ".";
-  const numberCoords = coords.split(",");
+  const numberCoords = convertStringCoordsToNumArray (coords);
   console.log (coords);
   if (voyager [coords] === 1) {
     displayCharacter = "$";
   }
-    display.draw(Number(numberCoords[0]), Number(numberCoords[1]), displayCharacter, null, null);
+    display.draw(numberCoords[0], numberCoords[1], displayCharacter, null, null);
 });
+
+drawTuvix (display);
+
+const randomPosition = convertStringCoordsToNumArray(
+  findEmptyTile(voyager)
+);
+const x = randomPosition[0];
+const y = randomPosition[1];
+
+display.draw(x, y, "J", 'red', null);
 
 export const Game = () => {
   useEffect(() => {
@@ -32,7 +43,7 @@ export const Game = () => {
   return (
     <>
       <div id="game-wrapper"></div>
-      <button
+      {/* <button
         onClick={() => {
           display.draw(
             Math.round(Math.random() * 25),
@@ -41,10 +52,11 @@ export const Game = () => {
             "red",
             null
           );
-        }}
-      >
+        }} */}
+      {/* >
         Spawn Tuvok
-      </button>
+      </button> 
+      THIS SPAWNS SO MANY RED TUVOKS*/} 
     </>
   );
 };
