@@ -1,0 +1,246 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+type characters {
+  id: Int!
+  name: String!
+}
+
+type characters_aggregate {
+  aggregate: characters_aggregate_fields
+  nodes: [characters!]!
+}
+
+type characters_aggregate_fields {
+  avg: characters_avg_fields
+  count(columns: [characters_select_column!], distinct: Boolean): Int
+  max: characters_max_fields
+  min: characters_min_fields
+  stddev: characters_stddev_fields
+  stddev_pop: characters_stddev_pop_fields
+  stddev_samp: characters_stddev_samp_fields
+  sum: characters_sum_fields
+  var_pop: characters_var_pop_fields
+  var_samp: characters_var_samp_fields
+  variance: characters_variance_fields
+}
+
+input characters_aggregate_order_by {
+  avg: characters_avg_order_by
+  count: order_by
+  max: characters_max_order_by
+  min: characters_min_order_by
+  stddev: characters_stddev_order_by
+  stddev_pop: characters_stddev_pop_order_by
+  stddev_samp: characters_stddev_samp_order_by
+  sum: characters_sum_order_by
+  var_pop: characters_var_pop_order_by
+  var_samp: characters_var_samp_order_by
+  variance: characters_variance_order_by
+}
+
+input characters_arr_rel_insert_input {
+  data: [characters_insert_input!]!
+  on_conflict: characters_on_conflict
+}
+
+type characters_avg_fields {
+  id: Float
+}
+
+input characters_avg_order_by {
+  id: order_by
+}
+
+input characters_bool_exp {
+  _and: [characters_bool_exp]
+  _not: characters_bool_exp
+  _or: [characters_bool_exp]
+  id: Int_comparison_exp
+  name: String_comparison_exp
+}
+
+enum characters_constraint {
+  characters_pkey
+}
+
+input characters_inc_input {
+  id: Int
+}
+
+input characters_insert_input {
+  id: Int
+  name: String
+}
+
+type characters_max_fields {
+  id: Int
+  name: String
+}
+
+input characters_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+type characters_min_fields {
+  id: Int
+  name: String
+}
+
+input characters_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+type characters_mutation_response {
+  affected_rows: Int!
+  returning: [characters!]!
+}
+
+input characters_obj_rel_insert_input {
+  data: characters_insert_input!
+  on_conflict: characters_on_conflict
+}
+
+input characters_on_conflict {
+  constraint: characters_constraint!
+  update_columns: [characters_update_column!]!
+  where: characters_bool_exp
+}
+
+input characters_order_by {
+  id: order_by
+  name: order_by
+}
+
+enum characters_select_column {
+  id
+  name
+}
+
+input characters_set_input {
+  id: Int
+  name: String
+}
+
+type characters_stddev_fields {
+  id: Float
+}
+
+input characters_stddev_order_by {
+  id: order_by
+}
+
+type characters_stddev_pop_fields {
+  id: Float
+}
+
+input characters_stddev_pop_order_by {
+  id: order_by
+}
+
+type characters_stddev_samp_fields {
+  id: Float
+}
+
+input characters_stddev_samp_order_by {
+  id: order_by
+}
+
+type characters_sum_fields {
+  id: Int
+}
+
+input characters_sum_order_by {
+  id: order_by
+}
+
+enum characters_update_column {
+  id
+  name
+}
+
+type characters_var_pop_fields {
+  id: Float
+}
+
+input characters_var_pop_order_by {
+  id: order_by
+}
+
+type characters_var_samp_fields {
+  id: Float
+}
+
+input characters_var_samp_order_by {
+  id: order_by
+}
+
+type characters_variance_fields {
+  id: Float
+}
+
+input characters_variance_order_by {
+  id: order_by
+}
+
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+type mutation_root {
+  delete_characters(where: characters_bool_exp!): characters_mutation_response
+  insert_characters(objects: [characters_insert_input!]!, on_conflict: characters_on_conflict): characters_mutation_response
+  update_characters(_inc: characters_inc_input, _set: characters_set_input, where: characters_bool_exp!): characters_mutation_response
+}
+
+enum order_by {
+  asc
+  asc_nulls_first
+  asc_nulls_last
+  desc
+  desc_nulls_first
+  desc_nulls_last
+}
+
+type query_root {
+  characters(distinct_on: [characters_select_column!], limit: Int, offset: Int, order_by: [characters_order_by!], where: characters_bool_exp): [characters!]!
+  characters_aggregate(distinct_on: [characters_select_column!], limit: Int, offset: Int, order_by: [characters_order_by!], where: characters_bool_exp): characters_aggregate!
+  characters_by_pk(id: Int!): characters
+}
+
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+type subscription_root {
+  characters(distinct_on: [characters_select_column!], limit: Int, offset: Int, order_by: [characters_order_by!], where: characters_bool_exp): [characters!]!
+  characters_aggregate(distinct_on: [characters_select_column!], limit: Int, offset: Int, order_by: [characters_order_by!], where: characters_bool_exp): characters_aggregate!
+  characters_by_pk(id: Int!): characters
+}

@@ -1,8 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_GREETING } from "./App.query";
 
 function App() {
+  const { loading, error, data } = useQuery(GET_GREETING);
+  console.log(data);
+  console.log(error);
+
   return (
     <div className="App">
       <header className="App-header">
