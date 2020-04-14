@@ -2,12 +2,11 @@ import * as ROT from "rot-js";
 import { GameMap } from "./maps";
 import { findEmptyTile, convertStringCoordsToNumArray } from "./utility";
 import { TUVIX_ICON } from "./constants";
-// export const dogThung = 7;
 
 let x = 0;
 let y = 0;
 
-export const drawTuvix =  (displayFromGameFile:ROT.Display):void => {
+export const drawTuvix = (displayFromGameFile: ROT.Display): void => {
   displayFromGameFile.draw(x, y, TUVIX_ICON, null, null);
 };
 
@@ -21,15 +20,16 @@ export const createController = (
   x = playStartingPosition[0];
   y = playStartingPosition[1];
 
+  // [UPDATE] No longer needed
+  // const input = document.createElement("input");
 
-  const input = document.createElement("input");
-
-  input.addEventListener("keydown", function (e) {
+  // [UPDATE] Changed this from "input" to "window"
+  window.addEventListener("keydown", e => {
     const code = e.keyCode;
-    const ch = String.fromCharCode(code);
+    // const ch = String.fromCharCode(code);
     let vk = "?"; /* find the corresponding constant */
     for (const name in ROT.KEYS) {
-      if ((ROT.KEYS as any)[name] == code && name.indexOf("VK_") == 0) {
+      if ((ROT.KEYS as any)[name] === code && name.indexOf("VK_") === 0) {
         vk = name;
       }
     }
@@ -55,7 +55,6 @@ export const createController = (
       }
     }
 
-    displayFromGameFile.draw(x, y, TUVIX_ICON, null, null);
+    drawTuvix(displayFromGameFile);
   });
-  return input;
 };

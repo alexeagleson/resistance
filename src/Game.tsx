@@ -1,48 +1,39 @@
-import React, { useEffect } from "react";
-import { display, gameCanvas } from "./game_objects/canvas";
+import React, { useEffect, useRef } from "react";
+import { display, gameCanvas, drawMap } from "./game_objects/canvas";
 import { createController, drawTuvix } from "./game_objects/control";
 import { voyager } from "./game_objects/maps";
-import { convertStringCoordsToNumArray, findEmptyTile } from "./game_objects/utility";
-const input = createController(display, voyager);
+import {
+  convertStringCoordsToNumArray,
+  findEmptyTile
+} from "./game_objects/utility";
 
+createController(display, voyager);
 
-input.style.width = "1px";
-console.log (voyager);
+// [UPDATE] No longer required
+// input.style.width = "1px";
 
+// [UPDATE] Created drawMap function
+drawMap(voyager);
+drawTuvix(display);
 
-Object.keys(voyager).forEach((coords) => {
-  let displayCharacter = ".";
-  const numberCoords = convertStringCoordsToNumArray (coords);
-  console.log (coords);
-  if (voyager [coords] === 1) {
-    displayCharacter = "$";
-  }
-    display.draw(numberCoords[0], numberCoords[1], displayCharacter, null, null);
-});
-
-drawTuvix (display);
-
-const randomPosition = convertStringCoordsToNumArray(
-  findEmptyTile(voyager)
-);
+const randomPosition = convertStringCoordsToNumArray(findEmptyTile(voyager));
 const x = randomPosition[0];
 const y = randomPosition[1];
 
-display.draw(x, y, "J", 'red', null);
+display.draw(x, y, "J", "red", null);
 
 export const Game = () => {
+  const gameWrapper = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    const divTag = document.querySelector("#game-wrapper");
-    console.log(divTag);
-    if (gameCanvas !== null) {
-      divTag?.appendChild(input);
-      divTag?.appendChild(gameCanvas);
-      input.focus();
+    if (gameWrapper.current && gameCanvas) {
+      gameWrapper.current.appendChild(gameCanvas);
     }
   }, []);
+  
   return (
     <>
-      <div id="game-wrapper"></div>
+      <div ref={gameWrapper}></div>
       {/* <button
         onClick={() => {
           display.draw(
@@ -56,7 +47,7 @@ export const Game = () => {
       {/* >
         Spawn Tuvok
       </button> 
-      THIS SPAWNS SO MANY RED TUVOKS*/} 
+      THIS SPAWNS SO MANY RED TUVOKS*/}
     </>
   );
 };
