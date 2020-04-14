@@ -1,5 +1,6 @@
 import { GameMap } from "./maps";
 import { MAP_WIDTH, MAP_HEIGHT } from "./constants";
+import { GameLocation } from "./items";
 
 export const findEmptyTile = (map: GameMap): string => {
   const startX = Math.floor(Math.random() * MAP_WIDTH);
@@ -20,4 +21,9 @@ export const isAWall = (map: GameMap, x: number, y: number): boolean => {
 export const convertStringCoordsToNumArray = (stringXY: string): number[] => {
   const stringCoords = stringXY.split(",");
   return [Number(stringCoords[0]), Number(stringCoords[1])];
+};
+
+export const convertStringCoordsToLocation = (stringXY: string): GameLocation => {
+  const stringCoords = stringXY.split(",");
+  return {x: Number(stringCoords[0]), y: Number(stringCoords[1])}
 };

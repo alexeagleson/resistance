@@ -2,28 +2,16 @@ import * as ROT from "rot-js";
 import { GameMap } from "./maps";
 import { findEmptyTile, convertStringCoordsToNumArray } from "./utility";
 import { TUVIX_ICON } from "./constants";
+import { tuvix } from "./characters";
 
-let x = 0;
-let y = 0;
-
-export const drawTuvix = (displayFromGameFile: ROT.Display): void => {
-  displayFromGameFile.draw(x, y, TUVIX_ICON, null, null);
-};
+// export const drawTuvix = (displayFromGameFile: ROT.Display): void => {
+//   displayFromGameFile.draw(x, y, TUVIX_ICON, null, null);
+// };
 
 export const createController = (
   displayFromGameFile: ROT.Display,
   mapFromGameFile: GameMap
 ) => {
-  const playStartingPosition = convertStringCoordsToNumArray(
-    findEmptyTile(mapFromGameFile)
-  );
-  x = playStartingPosition[0];
-  y = playStartingPosition[1];
-
-  // [UPDATE] No longer needed
-  // const input = document.createElement("input");
-
-  // [UPDATE] Changed this from "input" to "window"
   window.addEventListener("keydown", e => {
     const code = e.keyCode;
     // const ch = String.fromCharCode(code);
@@ -33,28 +21,48 @@ export const createController = (
         vk = name;
       }
     }
-    displayFromGameFile.draw(x, y, ".", null, null);
+    displayFromGameFile.draw(
+      tuvix.location.x,
+      tuvix.location.y,
+      ".",
+      null,
+      null
+    );
     if (vk === "VK_UP") {
-      if (mapFromGameFile[`${x},${y - 1}`] !== 1) {
-        y--;
+      if (
+        mapFromGameFile[`${tuvix.location.x},${tuvix.location.y - 1}`] !== 1
+      ) {
+        tuvix.location.y--;
       }
     }
     if (vk === "VK_DOWN") {
-      if (mapFromGameFile[`${x},${y + 1}`] !== 1) {
-        y++;
+      if (
+        mapFromGameFile[`${tuvix.location.x},${tuvix.location.y + 1}`] !== 1
+      ) {
+        tuvix.location.y++;
       }
     }
     if (vk === "VK_RIGHT") {
-      if (mapFromGameFile[`${x + 1},${y}`] !== 1) {
-        x++;
+      if (
+        mapFromGameFile[`${tuvix.location.x + 1},${tuvix.location.y}`] !== 1
+      ) {
+        tuvix.location.x++;
       }
     }
     if (vk === "VK_LEFT") {
-      if (mapFromGameFile[`${x - 1},${y}`] !== 1) {
-        x--;
+      if (
+        mapFromGameFile[`${tuvix.location.x - 1},${tuvix.location.y}`] !== 1
+      ) {
+        tuvix.location.x--;
       }
     }
 
-    drawTuvix(displayFromGameFile);
+    displayFromGameFile.draw(
+      tuvix.location.x,
+      tuvix.location.y,
+      tuvix.char,
+      tuvix.fgcolor,
+      null
+    );
   });
 };
