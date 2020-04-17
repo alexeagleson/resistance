@@ -1,6 +1,7 @@
 import { GameMap } from "./maps";
 import { MAP_WIDTH, MAP_HEIGHT } from "./constants";
 import { GameLocation } from "./items";
+import { allGameObjects } from "./characters";
 
 export const findEmptyTile = (map: GameMap): string => {
   const startX = Math.floor(Math.random() * MAP_WIDTH);
@@ -18,12 +19,29 @@ export const isAWall = (map: GameMap, x: number, y: number): boolean => {
   return false;
 };
 
+export const isBlockedByObject = (x: number, y: number): boolean => {
+  if (
+    allGameObjects.find((objectInFront) => {
+      return (
+        objectInFront.blocks === true &&
+        objectInFront.location.x === x &&
+        objectInFront.location.y === y
+      );
+    })
+  ) {
+    return true;
+  }
+  return false;
+};
+
 export const convertStringCoordsToNumArray = (stringXY: string): number[] => {
   const stringCoords = stringXY.split(",");
   return [Number(stringCoords[0]), Number(stringCoords[1])];
 };
 
-export const convertStringCoordsToLocation = (stringXY: string): GameLocation => {
+export const convertStringCoordsToLocation = (
+  stringXY: string
+): GameLocation => {
   const stringCoords = stringXY.split(",");
-  return {x: Number(stringCoords[0]), y: Number(stringCoords[1])}
+  return { x: Number(stringCoords[0]), y: Number(stringCoords[1]) };
 };
