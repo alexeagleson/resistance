@@ -45,3 +45,5 @@ export const convertStringCoordsToLocation = (
   const stringCoords = stringXY.split(",");
   return { x: Number(stringCoords[0]), y: Number(stringCoords[1]) };
 };
+
+

@@ -10,8 +10,11 @@ import {
   allGameObjects,
   placeGameObjectOnMap
 } from "./game_objects/characters";
+import { dogThank } from "./game_objects/sandbox";
 
 createController(display, voyager);
+
+const x = dogThank;
 
 drawMap(voyager);
 // drawTuvix(display);
