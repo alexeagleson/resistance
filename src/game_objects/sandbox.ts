@@ -49,84 +49,84 @@ const jodie: Employee = {
   name: "Jodie",
   employeeID: 1,
   isManager: true,
-  favouriteFood: "Goat Cheese"
+  favouriteFood: "Goat Cheese",
 };
 
 const alex: Employee = {
   name: "Alex",
   employeeID: 2,
   isManager: true,
-  favouriteFood: "Pizza"
+  favouriteFood: "Pizza",
 };
 
 const madelyn: Employee = {
   name: "Madelyn",
   employeeID: 3,
   isManager: false,
-  favouriteFood: "Lots of Pasta"
+  favouriteFood: "Lots of Pasta",
 };
 
 const bob: Employee = {
   name: "Bob",
   employeeID: 4,
   isManager: false,
-  favouriteFood: undefined
+  favouriteFood: undefined,
 };
 
 const todd: Employee = {
   name: "Todd",
   employeeID: 5,
   isManager: false,
-  favouriteFood: "Peanut Butter"
+  favouriteFood: "Peanut Butter",
 };
 
 const steve: Employee = {
   name: "Steve",
   employeeID: 6,
   isManager: false,
-  favouriteFood: undefined
+  favouriteFood: undefined,
 };
 
 const frank: Employee = {
   name: "Frank",
   employeeID: 7,
   isManager: false,
-  favouriteFood: undefined
+  favouriteFood: undefined,
 };
 
 const fred: Employee = {
   name: "Fred Johnson",
   employeeID: 8,
   isManager: true,
-  favouriteFood: undefined
+  favouriteFood: undefined,
 };
 
 const billy: Employee = {
   name: "Billy Snow",
   employeeID: 9,
   isManager: true,
-  favouriteFood: "Space Food"
+  favouriteFood: "Space Food",
 };
 
 const dog: Employee = {
   name: "A Dog",
   employeeID: 10,
   isManager: true,
-  favouriteFood: "Dog Food"
+  favouriteFood: "Dog Food",
 };
 
 const tony: Employee = {
   name: "Tony Hawk",
   employeeID: 11,
   isManager: false,
-  favouriteFood: "Corn Dogs"
+  favouriteFood: "Corn Dogs",
 };
 
 const crozier: Employee = {
   name: "Captain Crozier",
   employeeID: 12,
   isManager: true,
-  favouriteFood: "Lead Poisoning"
+  favouriteFood: "Lead Poisoning",
 };
 
 // list of workplaces ///////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ const peterborough: Workplace = {
   company: "Hydro One",
   buildingType: "Office",
   district: "Ontario",
-  employees: [jodie, dog, tony]
+  employees: [jodie, dog],
 };
 
 const jupiter: Workplace = {
@@ -146,7 +146,7 @@ const jupiter: Workplace = {
   company: "Hydro One",
   buildingType: "Office",
   district: "Space",
-  employees: [alex, crozier]
+  employees: [alex, crozier, tony],
 };
 
 const orillia: Workplace = {
@@ -155,7 +155,7 @@ const orillia: Workplace = {
   company: "Hydro One",
   buildingType: "Call Center",
   district: "Ontario",
-  employees: [madelyn]
+  employees: [madelyn],
 };
 
 const fowlersCorners: Workplace = {
@@ -164,7 +164,7 @@ const fowlersCorners: Workplace = {
   company: "Hydro One",
   buildingType: "Call Center",
   district: "Ontario",
-  employees: [bob]
+  employees: [bob],
 };
 
 const hastings: Workplace = {
@@ -173,7 +173,7 @@ const hastings: Workplace = {
   company: "Hydro One",
   buildingType: "Nuclear Power Plant",
   district: "Ontario",
-  employees: [todd]
+  employees: [todd],
 };
 
 const fenelonFalls: Workplace = {
@@ -182,7 +182,7 @@ const fenelonFalls: Workplace = {
   company: "Hydro One",
   buildingType: "Nuclear Power Plant",
   district: "Ontario",
-  employees: [steve]
+  employees: [steve],
 };
 
 const theMoon: Workplace = {
@@ -191,7 +191,7 @@ const theMoon: Workplace = {
   company: "Hydro One",
   buildingType: "Call Center",
   district: "Space",
-  employees: [frank]
+  employees: [frank],
 };
 
 const theBelt: Workplace = {
@@ -200,7 +200,7 @@ const theBelt: Workplace = {
   company: "Hydro One",
   buildingType: "Office",
   district: "Space",
-  employees: [fred]
+  employees: [fred],
 };
 
 const pluto: Workplace = {
@@ -209,7 +209,7 @@ const pluto: Workplace = {
   company: "Hydro One",
   buildingType: "Nuclear Power Plant",
   district: "Space",
-  employees: [billy]
+  employees: [billy],
 };
 
 const workplaces = [
@@ -221,7 +221,7 @@ const workplaces = [
   fenelonFalls,
   theMoon,
   theBelt,
-  pluto
+  pluto,
 ];
 
 const employees = [
@@ -235,22 +235,53 @@ const employees = [
   fred,
   billy,
   tony,
-  crozier
+  crozier,
 ];
+
+const favouriteFoods: Array<string> = employees.map((employee) => {
+  return (
+    employee.favouriteFood?.toLowerCase() ||
+    "doesn't like food or empty string would have been fine too"
+  );
+});
 
 const foodFixer = (food: string) => {
   return food.replace("Pasta", "Vegetable");
 };
 
-if (typeof madelyn.favouriteFood === 'string') {
+if (typeof madelyn.favouriteFood === "string") {
   console.log(foodFixer(madelyn.favouriteFood));
+}
+
+const includesWord = (wordSearch: string, wordList: string[]) => {
+  if (wordList.includes(wordSearch)) {
+    return "someone is so cool, they like pizza";
+  }
+  return "word not found";
 };
+
+const tonyHawksWorkplace = workplaces.find((workplace) => {
+  const probablyTony = workplace.employees.find((employee) => {
+    if (employee.name.toLowerCase() === "tony hawk") {
+      return true
+    }
+    return false;
+  }); 
+  if (probablyTony === undefined) {
+    return false;
+  }
+    return true;
+});
+
+console.log(tonyHawksWorkplace?.location);
+
+console.log(includesWord("pizza", favouriteFoods));
 
 console.log(madelyn.favouriteFood);
 
 const ontarioWorkplaces = workplaces.filter(filterOnFunct);
 
-ontarioWorkplaces.forEach(workplace => {
+ontarioWorkplaces.forEach((workplace) => {
   console.log(
     `The ${workplace.location} location has ${workplace.employees.length} ${
       workplace.employees.length > 1 ? "employees" : "employee"
@@ -276,13 +307,13 @@ const myHouse = {
   upstairs: {
     hasBathroom: true,
     hasOilRoom: false,
-    hasKitchen: true
+    hasKitchen: true,
   },
   downstairs: {
     hasBathroom: false,
     hasOilRoom: true,
-    hasKitchen: false
-  }
+    hasKitchen: false,
+  },
 };
 
 const isCoolKid = (kid: string) => {
@@ -293,7 +324,7 @@ const isCoolKid = (kid: string) => {
 };
 
 const fiveNumbers = [1, 2, 45, 66, 77];
-const doubleFiveNumbers = fiveNumbers.map(oneNumber => {
+const doubleFiveNumbers = fiveNumbers.map((oneNumber) => {
   return oneNumber * 2;
 });
 
