@@ -2,6 +2,9 @@ import { GameMap } from "./maps";
 import { MAP_WIDTH, MAP_HEIGHT } from "./constants";
 import { GameLocation } from "./items";
 import { allGameObjects } from "./characters";
+import { digThang} from "./sandbox_practice"
+
+console.log (digThang);
 
 export const findEmptyTile = (map: GameMap): string => {
   const startX = Math.floor(Math.random() * MAP_WIDTH);
