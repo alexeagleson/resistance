@@ -11,9 +11,11 @@ import {
   placeGameObjectOnMap
 } from "./game_objects/characters";
 import { dogThank } from "./game_objects/sandbox";
+import { dugThing } from "./game_objects/sandbox_practice2";
 
 createController(display, voyager);
 
+const i = dugThing;
 const x = dogThank;
 
 drawMap(voyager);
