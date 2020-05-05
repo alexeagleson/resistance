@@ -3,7 +3,9 @@ import { MAP_WIDTH, MAP_HEIGHT } from "./constants";
 import { GameLocation } from "./items";
 import { allGameObjects } from "./characters";
 import { digThang} from "./sandbox_practice"
+import { dingdong } from "./sandbox_practice3";
 
+console.log (dingdong);
 console.log (digThang);
 
 export const findEmptyTile = (map: GameMap): string => {
